@@ -1,1 +1,2 @@
 CC = cc
+PERL = perl
