@@ -1,6 +1,8 @@
 PLATFORM = generic
+TOP = .
 
-include ./mk/p_$(PLATFORM).mk
+include $(TOP)/mk/p_$(PLATFORM).mk
+include $(TOP)/mk/u_inherit.mk
 
 .PHONY: all clean ./build
 
@@ -11,7 +13,7 @@ all: ./build
 
 ./build/Makefile: ./tool/template.pl Makefile.in
 	mkdir -p ./build
-	$(PERL) ./tool/template.pl Makefile.in > $@
+	$(INHERIT) $(PERL) $(TOP)/tool/template.pl Makefile.in > $@
 
 clean:
 	rm -rf build
