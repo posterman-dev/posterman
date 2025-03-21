@@ -1,0 +1,16 @@
+CC = @CC@
+LINK = @LINK@
+PERL = @PERL@
+EXEC = @EXEC@
+OBJ = @OBJ@
+
+OBJS = main.o
+
+.PHONY: all clean
+
+all: pm$(EXEC)
+
+pm$(EXEC): $(OBJS)
+
+clean:
+	rm -rf *$(OBJ) pm$(EXEC)

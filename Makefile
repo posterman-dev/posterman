@@ -4,16 +4,20 @@ TOP = .
 include $(TOP)/mk/p_$(PLATFORM).mk
 include $(TOP)/mk/u_inherit.mk
 
-.PHONY: all clean ./build
+.PHONY: all distclean clean ./build
 
 all: ./build
 
 ./build: ./build/Makefile
 	mkdir -p ./build
+	cd $@ && $(MAKE)
 
-./build/Makefile: ./tool/template.pl Makefile.in
+./build/Makefile: ./tool/template.pl template/Makefile.in
 	mkdir -p ./build
-	$(INHERIT) $(PERL) $(TOP)/tool/template.pl Makefile.in > $@
+	$(INHERIT) $(PERL) $(TOP)/tool/template.pl template/Makefile.in > $@
+
+distclean:
+	rm -rf build
 
 clean:
-	rm -rf build
+	cd ./build && $(MAKE) clean

@@ -12,6 +12,6 @@ if(!open($in, "<", $ARGV[0])) {
 while(<$in>) {
 	my $line = $_;
 	$line =~ s/@([^@]+)@/replace_env($1)/eg;
-	$txt = $txt . $line . "\n";
+	$txt = $txt . $line;
 }
 print($txt);
