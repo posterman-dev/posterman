@@ -11,6 +11,9 @@ OBJS = main.o
 all: pm$(EXEC)
 
 pm$(EXEC): $(OBJS)
+	$(LINK) $@ $(OBJS)
+
+#<DEPRULE> ../src
 
 clean:
 	rm -rf *$(OBJ) pm$(EXEC)

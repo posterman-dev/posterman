@@ -10,14 +10,14 @@ all: ./build
 
 ./build: ./build/Makefile
 	mkdir -p ./build
-	cd $@ && $(MAKE)
+	cd $@ && $(MAKE) TOP=..
 
 ./build/Makefile: ./tool/template.pl template/Makefile.in
 	mkdir -p ./build
-	$(INHERIT) $(PERL) $(TOP)/tool/template.pl template/Makefile.in > $@
+	cd ./build && $(INHERIT) $(PERL) ../tool/template.pl ../template/Makefile.in > Makefile
 
 distclean:
 	rm -rf build
 
 clean:
-	cd ./build && $(MAKE) clean
+	cd ./build && $(MAKE) TOP=.. clean
