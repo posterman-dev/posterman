@@ -1,4 +1,4 @@
-CC = cc -c -o
+CC = cc -I. -c -o
 LINK = cc -o
 PERL = perl
 OBJ = .o
