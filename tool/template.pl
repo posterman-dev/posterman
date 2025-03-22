@@ -21,7 +21,6 @@ while(<$in>) {
 		}
 		$line = "";
 		if($1 == "DEPRULE"){
-			$line = $line . "### START $og ###\n";
 			opendir(my $dh, "$arg");
 			while(my $file = readdir($dh)){
 				if($file =~ /^\.{1,2}$/){
@@ -32,12 +31,14 @@ while(<$in>) {
 				$line = $line . "$obj: $arg/$file\n";
 				$line = $line . "\t\$(CC) \$@ $arg/$file\n";
 			}
-			$line = $line . "###  END  $og ###\n";
 		}
 		open(DEPSMK, ">", "out$incr.mk");
 		print DEPSMK $line;
 		close(DEPSMK);
-		$line = "include out$incr.mk\n";
+		$line = "";
+		$line = $line . "### START $og ###\n";
+		$line = $line . "include out$incr.mk\n";
+		$line = $line . "###  END  $og ###\n";
 		$incr = $incr + 1;
 	}else{
 		$line =~ s/@([^@]+)@/replace_env($1)/eg;
