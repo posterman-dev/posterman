@@ -4,7 +4,7 @@ PERL = @PERL@
 EXEC = @EXEC@
 OBJ = @OBJ@
 
-OBJS = main.o
+OBJS = main$(OBJ)
 
 .PHONY: all clean
 

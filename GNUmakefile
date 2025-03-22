@@ -1,2 +1,2 @@
-.export
+export
 include ./main.mk
