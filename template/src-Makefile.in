@@ -10,8 +10,8 @@ all: pm$(EXEC)
 
 #<DEPRULE> ../src
 
-pm$(EXEC): $(OBJS)
-	$(LINK) $@ $(OBJS)
+pm$(EXEC): $(OBJS) ./lib/libpm.a
+	$(LINK) $@ $(OBJS) ./lib/libpm.a
 
 clean:
 	rm -rf *$(OBJ) pm$(EXEC)

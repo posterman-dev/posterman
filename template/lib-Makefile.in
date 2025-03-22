@@ -1,0 +1,17 @@
+CC = @CC@
+LINK = @LINK@
+PERL = @PERL@
+EXEC = @EXEC@
+OBJ = @OBJ@
+
+.PHONY: all clean
+
+all: libpm.a
+
+#<DEPRULE> ../src
+
+libpm.a: $(OBJS)
+	$(AR) rcs $@ $(OBJS)
+
+clean:
+	rm -rf *$(OBJ) libpm.a

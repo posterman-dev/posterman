@@ -27,11 +27,13 @@ while(<$in>) {
 				if($file =~ /^\.{1,2}$/){
 					next;
 				}
-				my $obj = $file;
-				$obj =~ s/\.c$/\$(OBJ)/;
-				$objs = $objs . " $obj";
-				$line = $line . "$obj: $arg/$file\n";
-				$line = $line . "\t\$(CC) \$@ $arg/$file\n";
+				if($file =~ /\.c$/){
+					my $obj = $file;
+					$obj =~ s/\.c$/\$(OBJ)/;
+					$objs = $objs . " $obj";
+					$line = $line . "$obj: $arg/$file\n";
+					$line = $line . "\t\$(CC) \$@ $arg/$file\n";
+				}
 			}
 			closedir($dh);
 			$line = $line . "OBJS =$objs\n";
