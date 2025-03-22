@@ -1,4 +1,4 @@
-CC = cc -I$$(TOP)/lib -c -o
+CC = cc -I$$(TOP)/lib/include -c -o
 AR = ar
 LINK = cc -o
 PERL = perl
