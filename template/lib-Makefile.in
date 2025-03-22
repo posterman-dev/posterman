@@ -1,17 +1,20 @@
 CC = @CC@
+AR = @AR@
 LINK = @LINK@
 PERL = @PERL@
 EXEC = @EXEC@
 OBJ = @OBJ@
+STLIB = @STLIB@
+DYLIB = @DYLIB@
 
 .PHONY: all clean
 
-all: libpm.a
+all: libpm$(STLIB)
 
-#<DEPRULE> ../src
+#<DEPRULE> ../../lib
 
-libpm.a: $(OBJS)
+libpm$(STLIB): $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
 clean:
-	rm -rf *$(OBJ) libpm.a
+	rm -rf *$(OBJ) libpm$(STLIB)

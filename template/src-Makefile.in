@@ -1,8 +1,11 @@
 CC = @CC@
+AR = @AR@
 LINK = @LINK@
 PERL = @PERL@
 EXEC = @EXEC@
 OBJ = @OBJ@
+STLIB = @STLIB@
+DYLIB = @DYLIB@
 
 .PHONY: all clean
 
@@ -10,8 +13,8 @@ all: pm$(EXEC)
 
 #<DEPRULE> ../src
 
-pm$(EXEC): $(OBJS) ./lib/libpm.a
-	$(LINK) $@ $(OBJS) ./lib/libpm.a
+pm$(EXEC): $(OBJS) ./lib/libpm$(STLIB)
+	$(LINK) $@ $(OBJS) ./lib/libpm$(STLIB)
 
 clean:
 	rm -rf *$(OBJ) pm$(EXEC)
