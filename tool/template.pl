@@ -4,6 +4,7 @@ sub replace_env {
 	return "$ENV{$_[0]}";
 }
 
+my $incr = 0;
 my $txt = "";
 my $in = STDIN;
 if(!open($in, "<", $ARGV[0])) {
@@ -19,18 +20,25 @@ while(<$in>) {
 			$arg = substr($arg, 1);
 		}
 		$line = "";
-		$line = $line . "### START $og ###\n";
-		opendir(my $dh, "$arg");
-		while(my $file = readdir($dh)){
-			if($file =~ /^\.{1,2}$/){
-				next;
+		if($1 == "DEPRULE"){
+			$line = $line . "### START $og ###\n";
+			opendir(my $dh, "$arg");
+			while(my $file = readdir($dh)){
+				if($file =~ /^\.{1,2}$/){
+					next;
+				}
+				my $obj = $file;
+				$obj =~ s/\.c$/\$(OBJ)/;
+				$line = $line . "$obj: $arg/$file\n";
+				$line = $line . "\t\$(CC) \$@ $arg/$file\n";
 			}
-			my $obj = $file;
-			$obj =~ s/\.c$/\$(OBJ)/;
-			$line = $line . "$obj: $arg/$file\n";
-			$line = $line . "\t\$(CC) \$@ $arg/$file\n";
+			$line = $line . "###  END  $og ###\n";
 		}
-		$line = $line . "###  END  $og ###\n";
+		open(DEPSMK, ">", "out$incr.mk");
+		print DEPSMK $line;
+		close(DEPSMK);
+		$line = "include out$incr.mk\n";
+		$incr = $incr + 1;
 	}else{
 		$line =~ s/@([^@]+)@/replace_env($1)/eg;
 	}
