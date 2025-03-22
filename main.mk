@@ -3,7 +3,7 @@ TOP = .
 
 include $(TOP)/mk/p_$(PLATFORM).mk
 
-.PHONY: all distclean clean ./build
+.PHONY: all distclean clean ./build ./build/Makefile
 
 all: ./build
 

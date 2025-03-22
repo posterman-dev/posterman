@@ -4,16 +4,14 @@ PERL = @PERL@
 EXEC = @EXEC@
 OBJ = @OBJ@
 
-OBJS = main$(OBJ)
-
 .PHONY: all clean
 
 all: pm$(EXEC)
 
+#<DEPRULE> ../src
+
 pm$(EXEC): $(OBJS)
 	$(LINK) $@ $(OBJS)
-
-#<DEPRULE> ../src
 
 clean:
 	rm -rf *$(OBJ) pm$(EXEC)

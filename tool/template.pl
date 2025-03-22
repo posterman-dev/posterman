@@ -21,6 +21,7 @@ while(<$in>) {
 		}
 		$line = "";
 		if($1 == "DEPRULE"){
+			my $objs = "";
 			opendir(my $dh, "$arg");
 			while(my $file = readdir($dh)){
 				if($file =~ /^\.{1,2}$/){
@@ -28,9 +29,12 @@ while(<$in>) {
 				}
 				my $obj = $file;
 				$obj =~ s/\.c$/\$(OBJ)/;
+				$objs = $objs . " $obj";
 				$line = $line . "$obj: $arg/$file\n";
 				$line = $line . "\t\$(CC) \$@ $arg/$file\n";
 			}
+			closedir($dh);
+			$line = $line . "OBJS =$objs\n";
 		}
 		open(DEPSMK, ">", "out$incr.mk");
 		print DEPSMK $line;
