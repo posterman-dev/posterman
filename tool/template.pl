@@ -4,6 +4,12 @@ sub replace_env {
 	return "$ENV{$_[0]}";
 }
 
+my ($sec, $min, $hour, $mday, $mon, $year) = (localtime(time))[0..5];
+
+$year = $year + 1900;
+$mon = $mon + 1;
+
+my $date = sprintf("%d-%02d-%02d", $year, $mon, $mday);
 my $incr = 0;
 my $txt = "";
 my $in = STDIN;
@@ -32,7 +38,7 @@ while(<$in>) {
 					$obj =~ s/\.c$/\$(OBJ)/;
 					$objs = $objs . " $obj";
 					$line = $line . "$obj: $arg/$file\n";
-					$line = $line . "\t\$(CC) \$@ $arg/$file\n";
+					$line = $line . "\t\$(CC) \$@ -DBUILD_DATE='\"$date\"' -I\$(TOP)/lib/include $arg/$file\n";
 				}
 			}
 			closedir($dh);
