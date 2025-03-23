@@ -1,0 +1,70 @@
+/skip 2 def
+/sizx currentpagedevice /PageSize get 0 get skip div cvi def
+/sizy currentpagedevice /PageSize get 1 get skip div cvi def
+/pagx currentpagedevice /PageSize get 0 get cvi def
+/pagy currentpagedevice /PageSize get 1 get cvi def
+/y 0 def
+sizy {
+	y sizy div 1 1 sethsbcolor
+	0 y skip mul sizx skip mul skip rectfill
+	/y y 1 add def
+} repeat
+
+/fontsize 24 def
+/Courier findfont fontsize scalefont setfont
+/y 0 def
+
+/vert 50 def
+/horiz 50 def
+horiz {
+	0
+	vert {
+		dup
+		dup
+		fontsize vert mul div 1 exch sub 1 1 sethsbcolor
+		y add y exch moveto
+		product show
+		fontsize add
+	} repeat
+	pop
+	/y y fontsize add def
+} repeat
+
+/Helvetica findfont 48 scalefont setfont
+(PostScript Level  ) dup dup length 1 sub
+languagelevel 1 string cvs
+putinterval dup
+true charpath pathbbox
+/uy exch def
+/rx exch def
+/ly exch def
+/lx exch def
+
+1 1 1 setrgbcolor
+pagx rx lx sub 25 add sub 2 div
+pagy uy ly sub 25 add sub 2 div
+rx lx sub 25 add
+uy ly sub 25 add
+rectfill
+
+pagx rx lx sub sub 2 div
+pagy uy ly sub sub 2 div
+moveto
+0 0 0 setrgbcolor
+show
+
+newpath 0 0 moveto
+/Courier findfont 18 scalefont setfont
+product dup true charpath pathbbox
+/uy exch def
+/rx exch def
+/ly exch def
+/lx exch def
+
+pagx rx lx sub sub 2 div
+pagy uy ly sub sub 2 div 24 add
+moveto
+0 0 0 setrgbcolor
+show
+
+showpage
