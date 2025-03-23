@@ -4,9 +4,9 @@
 #define PM_VERSION "1.0.0"
 
 typedef struct pm_version {
-	int major;
-	int minor;
-	int patch;
+	int  major;
+	int  minor;
+	int  patch;
 	char full[64];
 } pm_version_t;
 

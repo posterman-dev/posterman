@@ -3,9 +3,12 @@ TOP = .
 
 include $(TOP)/mk/p_$(PLATFORM).mk
 
-.PHONY: all distclean clean ./build ./build/Makefile ./build/lib ./build/lib/Makefile
+.PHONY: all distclean clean format ./build ./build/Makefile ./build/lib ./build/lib/Makefile
 
 all: ./build
+
+format:
+	clang-format --verbose -i `find src lib -name "*.c" -or -name "*.h"`
 
 ./build: ./build/lib ./build/Makefile
 	cd $@ && $(MAKE) TOP=..
